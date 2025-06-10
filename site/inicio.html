@@ -1,99 +1,103 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./vars.css">
   <link rel="stylesheet" href="./style.css">
-  
-  
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <title>Galeria de Fotos</title>
 </head>
 <body>
-  <div class="header">
-    <div class="block">
-      <img class="logo" src="https://e7.pngegg.com/pngimages/130/947/png-clipart-logo-business-exemplis-brand-design-angle-text.png" />
-    </div>
 
-    <section>
-       <nav>
+  <header class="main-header">
+    <div class="header-top">
+      <img class="logo" src="https://e7.pngegg.com/pngimages/130/947/png-clipart-logo-business-exemplis-brand-design-angle-text.png" alt="Logo da Empresa" />
+      <span class="company-name-header">NK Estúdio e Digitalização de Imagem LTDA</span>
+      <nav class="main-nav">
         <ul class="navegacao-lista">
-            <li><a href="inicio.html" class="navegacao1">Pagina inicial</a></li>
-            <li><a href="portfolio.html" class="navegacao2">Portfolio</a></li>
-            <li><a href="sobre-mim.html" class="navegacao2">Sobre mim</a></li>
-            <li><a href="contato.html" class="navegacao2">Contato</a></li>
+            <li><a href="inicio.html" class="navegacao-link active">Página inicial</a></li>
+            <li><a href="portfolio.html" class="navegacao-link">Portfólio</a></li>
+            <li><a href="sobre-mim.html" class="navegacao-link">Sobre mim</a></li>
+            <li><a href="contato.html" class="navegacao-link">Contato</a></li>
         </ul>
-    </nav>
-    </section>
+      </nav>
+    </div>
+  </header>
 
-    <section>
-      <h2>NOME DA EMPRESA</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae alias similique numquam animi corrupti neque officia in adipisci ratione. Doloremque dolorum neque perferendis debitis blanditiis, voluptas corrupti earum. Qui, delectus?</p>
-      <img src="https://cdn.pixabay.com/photo/2020/05/13/18/58/nature-5168551_1280.jpg" alt="imagem" class="imagem">
-      <br>
-      <button class="button">Saiba mais</button>
-    </section>
-    
-    <section>
-      <h2>BLOG</h2>
-      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium veritatis quaerat dolorum, quisquam dolor exercitationem nemo cumque nesciunt minima, fuga numquam beatae a temporibus non, natus aperiam excepturi doloribus ut!</p>
-      <img src="https://cdn.pixabay.com/photo/2020/05/13/18/58/nature-5168551_1280.jpg" alt="imagem" class="imagem">
-      <br>
-      <button>Saiba mais</button>
-    </section>
-
-        <section>
-      <h2>SOBRE MIM</h2>
-      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium veritatis quaerat dolorum, quisquam dolor exercitationem nemo cumque nesciunt minima, fuga numquam beatae a temporibus non, natus aperiam excepturi doloribus ut!</p>
-      <img src="https://cdn.pixabay.com/photo/2020/05/13/18/58/nature-5168551_1280.jpg" alt="imagem" class="imagem">
-      <br>
-      <button>Saiba mais</button>
-    </section>
-
-        <section>
-      <h2>REDES SOCIAIS</h2>
-      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium veritatis quaerat dolorum, quisquam dolor exercitationem nemo cumque nesciunt minima, fuga numquam beatae a temporibus non, natus aperiam excepturi doloribus ut!</p>
-      <a href="facebook">facebook</a> <br>
-      <a href="instragram">instagram</a>
-    </section>
-
-    <section>
-      <h2>FALE CONOSCO</h2>
-      <h5>Formulário de Cadastro</h5>
-    <form>
-        <div>
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" required>
+  <main>
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Apresente sua marca</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae alias similique numquam animi corrupti neque officia in adipisci ratione. Doloremque dolrum neque perferendis debitis blanditiis, voluptas corrupti earum. Qui, delectus?</p>
+            <button class="btn primary-btn">VER MAIS</button>
         </div>
-        
-        <div>
-            <label for="sobrenome">Sobrenome:</label>
-            <input type="text" id="sobrenome" name="sobrenome" required>
-        </div>
-        
-        <div>
-            <label for="email">E-mail:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        
-        <div>
-            <label for="descricao">Descrição:</label>
-            <textarea id="descricao" name="descricao"></textarea>
-        </div>
-        
-        <button type="submit">Enviar</button>
-    </form>
     </section>
 
-    <footer>
-      <h2>NOME DA EMPRESA</h2>
-      <h3>Localização</h3>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum eius nostrum harum, voluptatem suscipit officia esse voluptate atque hic ad, ipsam eaque iusto ea provident, molestiae ipsum explicabo sit similique.</p>
-      <h3>Contato</h3>
-      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam repellat atque nostrum autem recusandae minima magnam excepturi dicta quasi alias repellendus id est aspernatur, optio nisi voluptates amet natus perspiciatis.</p>
-    </footer>
-  
+    <section class="about-section">
+        <div class="about-content">
+            <h2>Mais sobre nossa marca</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi efficitur, enim eget fermentum imperdiet, purus, praesentium aenean. Vestibulum varius mi vel magna volutpat, ac tempor ex sollicitudin. Sed vel maximus nisi. Nulla facilisi. Proin id libero ut mi dapibus hendrerit.</p>
+        </div>
+    </section>
+
+    <section class="social-media-section">
+        <h3 class="section-title">Siga-nos nas redes sociais</h3>
+        <div class="social-grid">
+            <img src="https://cdn.pixabay.com/photo/2020/05/13/18/58/nature-5168551_1280.jpg" alt="Rede Social Imagem 1" class="social-item">
+            <img src="https://cdn.pixabay.com/photo/2020/05/13/18/58/nature-5168551_1280.jpg" alt="Rede Social Imagem 2" class="social-item">
+        </div>
+    </section>
+
+    <section class="contact-section">
+        <h2 class="section-title">Fale conosco</h2>
+        <div class="contact-form-container">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae alias similique numquam animi corrupti neque officia in adipisci ratione.</p>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefone">Telefone:</label>
+                    <input type="tel" id="telefone" name="telefone" placeholder="(XX) XXXXX-XXXX">
+                </div>
+                <div class="form-group">
+                    <label for="assunto">Assunto:</label>
+                    <input type="text" id="assunto" name="assunto" placeholder="Assunto da mensagem">
+                </div>
+                <div class="form-group full-width">
+                    <label for="mensagem">Mensagem:</label>
+                    <textarea id="mensagem" name="mensagem" rows="5" placeholder="Sua mensagem"></textarea>
+                </div>
+                <button type="submit" class="btn primary-btn">Enviar</button>
+            </form>
+        </div>
+    </section>
+  </main>
+
+  <footer class="main-footer">
+    <div class="footer-content">
+        <div class="footer-block">
+            <h3>Título do seu site</h3>
+        </div>
+        <div class="footer-block">
+            <h4>Localização</h4>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum eius nostrum harum, voluptatem suscipit officia esse voluptate atque hic ad, ipsam eaque iusto ea provident, molestiae ipsum explicabo sit similique.</p>
+        </div>
+        <div class="footer-block">
+            <h4>Contato</h4>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam repellat atque nostrum autem recusandae minima magnam excepturi dicta quasi alias repellendus id est aspernatur, optio nisi voluptates amet natus perspiciatis.</p>
+        </div>
+    </div>
+  </footer>
+
 </body>
 </html>
