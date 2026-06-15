@@ -141,7 +141,6 @@ include __DIR__ . '/includes/head.php';
             <?php endforeach; ?>
           </div>
 
-          <!-- BOTÃO "Ver mais" → leva para a galeria completa -->
           <div class="portfolio-cta">
             <a href="galeria.php" class="hero-button">Ver mais fotos</a>
           </div>
@@ -154,7 +153,6 @@ include __DIR__ . '/includes/head.php';
             <h2>Olhar autoral aliado à estratégia.</h2>
           </div>
 
-          <!-- Sobre agora tem layout 2 colunas: foto + texto -->
           <div class="about-inner about-with-photo">
             <div class="about-photo">
               <?php
@@ -224,7 +222,6 @@ include __DIR__ . '/includes/head.php';
                   </a>
                 </div>
 
-                <!-- Lista com os contatos por extenso (acessível e útil) -->
                 <ul class="contact-list">
                   <li>
                     <i class="fa-brands fa-instagram"></i>

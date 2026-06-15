@@ -54,7 +54,7 @@ O Gmail não deixa mais usar a senha normal pra enviar e-mail por aplicativo. Vo
 
 ## 3. Configurar a senha no projeto
 
-Abra `html/includes/mail-config.php`:
+Abra `php/includes/mail-config.php`:
 
 ```php
 'smtp_password' => 'COLE_AQUI_A_SENHA_DE_APP_DE_16_CHARS',

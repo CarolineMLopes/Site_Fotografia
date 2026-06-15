@@ -15,7 +15,6 @@ $admin      = $admin      ?? false;
       <div class="brand-mark"></div>
       <span class="brand-name">NK Edição e Vídeo – Fotógrafo Mauricio Nadim</span>
     </div>
-    <!-- Assinatura logo abaixo do logotipo -->
     <img
       src="../imagens/assinatura_png2.png"
       alt="Assinatura Mauricio Nadim"
@@ -47,7 +46,7 @@ $admin      = $admin      ?? false;
           <a href="logout.php" class="btn-sair-nav" title="Encerrar sessão de admin">Sair</a>
         </li>
       <?php else: ?>
-        <!-- Não logado: botão Admin com mesmo design do header da galeria -->
+        <!-- Não logado: link de acesso ao painel admin -->
         <li>
           <a href="login.php" class="btn-admin" title="Área do administrador">
             <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>

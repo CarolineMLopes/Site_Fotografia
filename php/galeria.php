@@ -29,7 +29,6 @@ if (is_dir(UPLOAD_DIR)) {
 include __DIR__ . '/includes/head.php';
 ?>
   <body>
-    <!-- Header -->
     <header>
       <div class="brand-wrapper">
         <div class="brand">
@@ -64,7 +63,6 @@ include __DIR__ . '/includes/head.php';
       </div>
     </header>
 
-    <!-- Título da página -->
     <section class="galeria-hero">
       <h1>Galeria de Imagens</h1>
       <p>Portfólio fotográfico de Mauricio Nadim.</p>
@@ -79,7 +77,6 @@ include __DIR__ . '/includes/head.php';
             Administrador
           </span>
 
-          <!-- Formulário de upload (POST → upload.php) -->
           <form action="upload.php" method="post" enctype="multipart/form-data" class="admin-form-upload">
             <label class="upload-label" for="file-input">
               <svg viewBox="0 0 24 24">
@@ -104,7 +101,6 @@ include __DIR__ . '/includes/head.php';
       </div>
     <?php endif; ?>
 
-    <!-- Grade da galeria -->
     <main class="galeria-wrapper">
       <?php if (empty($imagens)): ?>
         <div class="empty-state">
@@ -171,7 +167,6 @@ include __DIR__ . '/includes/head.php';
       </div>
     </div>
 
-    <!-- Footer -->
     <footer>
       &copy; <?php echo date('Y'); ?> NK Edição e Vídeo · Fotógrafo Mauricio Nadim. Todos os direitos reservados.
     </footer>

@@ -8,4 +8,4 @@ imagens/galeria/
 composer.lock
 
 # Credenciais SMTP — NUNCA commitar
-html/includes/mail-config.php
+php/includes/mail-config.php

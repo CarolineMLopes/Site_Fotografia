@@ -1,11 +1,10 @@
 ================================================================================
-       PROJETO DE EXTENSÃO EXTRACURRICULAR — DESENVOLVIMENTO WEB
+       DOCUMENTAÇÃO DO PROJETO — DESENVOLVIMENTO WEB
        NK Edição e Vídeo · Site Profissional do Fotógrafo Mauricio Nadim
 ================================================================================
 Curso .........: Análise e Desenvolvimento de Sistemas (ADS)
-Natureza ......: Projeto Extracurricular de Extensão
-Data de Início : 2025
-Data de Entrega: Maio de 2026
+Data de Início : maio de 2025
+Data de Entrega: junho de 2026
 Tecnologias ...: HTML5 · CSS3 · JavaScript (Vanilla) · PHP 8 · PHPMailer · SMTP
 ================================================================================
 
@@ -52,9 +51,8 @@ criativas como a fotografia. Um portfólio online bem construído transmite
 profissionalismo, organiza o trabalho do fotógrafo e funciona como cartão de
 visitas permanentemente acessível.
 
-Este projeto foi desenvolvido como atividade de extensão extracurricular no
-âmbito do curso de Análise e Desenvolvimento de Sistemas, com o propósito de
-aplicar na prática os conteúdos teóricos estudados em disciplinas como
+Este projeto foi desenvolvido no âmbito do curso de Análise e Desenvolvimento
+de Sistemas (ADS), com o propósito de aplicar na prática conteúdos de
 Desenvolvimento Web, Programação para Internet e Segurança da Informação.
 
 A proposta surgiu da necessidade real do fotógrafo Mauricio Nadim de possuir
@@ -136,11 +134,11 @@ Ao longo do desenvolvimento, os arquivos foram organizados na seguinte
 estrutura de diretórios:
 
   HTML.CSS/
-  ├── index.php                  → Redirecionamento raiz → html/inicio.php
+  ├── index.php                  → Redirecionamento raiz → php/inicio.php
   ├── composer.json              → Dependências PHP (PHPMailer)
   ├── .gitignore                 → Exclusões do controle de versão
   ├── SETUP_EMAIL.md             → Guia de configuração do envio de e-mail
-  ├── PROJETO_EXTENSAO_EXTRACURRICULAR.txt → Este documento
+  ├── Documentação.txt           → Este documento
   ├── vendor/                    → PHPMailer (gitignored, gerado pelo Composer)
   ├── css/
   │   ├── vars.css               → Variáveis CSS globais
@@ -153,7 +151,7 @@ estrutura de diretórios:
   │   ├── ensaio1.jpeg, ensaio2.jpeg, gestante1-3.jpeg, 15anos1-2.jpeg,
   │   │   batizado1.jpeg, produtos1-2.jpeg, casamento1-2.jpeg
   │   └── galeria/               → Imagens enviadas pelo admin (gitignored)
-  └── html/
+  └── php/
       ├── inicio.php             → Página principal
       ├── galeria.php            → Galeria + painel admin
       ├── login.php              → Formulário de login (POST PHP nativo)
@@ -185,7 +183,7 @@ estrutura de diretórios:
 
        composer install
 
-  3. Configure as credenciais de e-mail em html/includes/mail-config.php
+  3. Configure as credenciais de e-mail em php/includes/mail-config.php
      (siga o SETUP_EMAIL.md para gerar a Senha de App do Gmail).
 
   4. Suba o servidor embutido do PHP:
@@ -198,9 +196,9 @@ estrutura de diretórios:
   ┌─────────────────────┬────────────────────────────────────────────────┐
   │ Página              │ URL                                            │
   ├─────────────────────┼────────────────────────────────────────────────┤
-  │ Página inicial      │ http://localhost:8000/html/inicio.php          │
-  │ Galeria             │ http://localhost:8000/html/galeria.php         │
-  │ Login administrador │ http://localhost:8000/html/login.php           │
+  │ Página inicial      │ http://localhost:8000/php/inicio.php           │
+  │ Galeria             │ http://localhost:8000/php/galeria.php          │
+  │ Login administrador │ http://localhost:8000/php/login.php            │
   └─────────────────────┴────────────────────────────────────────────────┘
 
   CREDENCIAIS DO ADMINISTRADOR (padrão):
@@ -212,14 +210,14 @@ estrutura de diretórios:
 
   COMO ALTERAR A SENHA:
   Edite a constante ADMIN_PASSWORD no arquivo
-  html/includes/config.php (basta trocar o valor entre aspas).
+  php/includes/config.php (basta trocar o valor entre aspas).
 
   FLUXO DE LOGIN DO ADMINISTRADOR:
   inicio.php (botão "Admin" na nav) → login.php (formulário POST PHP)
   → galeria.php em modo administrador (badge dourado + painel)
 
 
-4.3 PÁGINA INICIAL (html/inicio.php)
+4.3 PÁGINA INICIAL (php/inicio.php)
 ─────────────────────────────────────
 
 A página inicial foi estruturada em seções semânticas HTML5 com
@@ -269,7 +267,7 @@ componentização em PHP por meio de includes:
   • Footer (includes/footer.php) com ano dinâmico via date('Y') do PHP.
 
 
-4.4 PÁGINA DE LOGIN (html/login.php)
+4.4 PÁGINA DE LOGIN (php/login.php)
 ─────────────────────────────────────
 
 Página dedicada à autenticação do administrador, acessada pelo botão
@@ -286,7 +284,7 @@ Página dedicada à autenticação do administrador, acessada pelo botão
     o estado do formulário.
 
 
-4.5 PÁGINA DE GALERIA (html/galeria.php)
+4.5 PÁGINA DE GALERIA (php/galeria.php)
 ─────────────────────────────────────────
 
 A galeria foi desenvolvida em duas camadas funcionais:
@@ -338,16 +336,16 @@ Diferentemente da etapa anterior do projeto (que usava Node.js/Express com
 endpoints REST), a versão final utiliza handlers PHP individuais para cada
 ação, modelo simples e amplamente suportado por hospedagens compartilhadas.
 
-  html/login.php   (GET + POST)
+  php/login.php   (GET + POST)
     → Exibe e processa o formulário de login. POST chama loginAdmin()
       (auth.php) que valida a senha, regenera o ID de sessão e grava
       $_SESSION['admin'] = true. Em sucesso, redireciona para galeria.php.
 
-  html/logout.php  (GET)
+  php/logout.php  (GET)
     → Chama logoutAdmin(), que limpa $_SESSION, expira o cookie de sessão
       e chama session_destroy(). Redireciona para galeria.php.
 
-  html/upload.php  (POST, requer admin)
+  php/upload.php  (POST, requer admin)
     → Recebe $_FILES['images'] (array, múltiplos arquivos).
       Validações: extensão (jpg/jpeg/png), MIME real via finfo,
       tamanho máximo de 10 MB. Nome final gerado como timestamp +
@@ -355,14 +353,14 @@ ação, modelo simples e amplamente suportado por hospedagens compartilhadas.
       Move o arquivo para imagens/galeria/ via move_uploaded_file().
       Grava mensagens flash em $_SESSION e redireciona para galeria.php.
 
-  html/excluir.php (POST, requer admin)
+  php/excluir.php (POST, requer admin)
     → Recebe nome do arquivo via $_POST['arquivo'].
       Sanitização: basename() para remover qualquer tentativa de
       path traversal (../, ..\). Validação por extensão permitida.
       Conferência adicional com realpath() para garantir que o caminho
       resolvido está dentro de UPLOAD_DIR antes do unlink().
 
-  html/contato.php (POST)
+  php/contato.php (POST)
     → Recebe os campos do formulário de contato. Validações:
       campos obrigatórios, e-mail via FILTER_VALIDATE_EMAIL, tamanho
       mínimo/máximo da mensagem. Honeypot ("website") rejeita bots
@@ -491,7 +489,7 @@ As seguintes medidas de segurança foram implementadas:
       print screen.
 
   • .gitignore configurado:
-    /vendor/, composer.lock, html/includes/mail-config.php,
+    /vendor/, composer.lock, php/includes/mail-config.php,
     imagens/galeria/, *.log, .env, node_modules/.
 
 
@@ -546,7 +544,7 @@ O projeto passou pelas seguintes fases:
     em HTML puro com folha de estilo única.
 
   Fase 2 — Reestruturação e identidade visual
-    Reorganização em html/, css/, imagens/. Layout escuro elegante,
+    Reorganização em php/, css/, imagens/. Layout escuro elegante,
     paleta dourada (#e3b66d) como acento, tipografia limpa.
 
   Fase 3 — Backend Node.js (Express)
@@ -628,5 +626,5 @@ full-stack.
 
 ================================================================================
 Mauricio Nadim · NK Edição e Vídeo
-Projeto de Extensão Extracurricular — ADS
+Documentação do Projeto — ADS
 ================================================================================

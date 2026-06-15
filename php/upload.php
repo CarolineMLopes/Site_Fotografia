@@ -11,7 +11,6 @@
 require_once __DIR__ . '/includes/auth.php';
 exigirAdmin(); // se não for admin, manda pra login.php
 
-// Só aceita POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: galeria.php');
     exit;
@@ -85,7 +84,6 @@ for ($i = 0; $i < $qtd; $i++) {
 
 if ($finfo) finfo_close($finfo);
 
-// Monta mensagem flash
 if ($enviados > 0) {
     $_SESSION['msg_sucesso'] = "$enviados imagem(ns) adicionada(s) à galeria.";
 }

@@ -19,7 +19,6 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-// Só aceita POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: inicio.php');
     exit;
@@ -62,7 +61,6 @@ $config = require __DIR__ . '/includes/mail-config.php';
 $mail = new PHPMailer(true);
 
 try {
-    // Servidor SMTP
     $mail->isSMTP();
     $mail->Host       = $config['smtp_host'];
     $mail->SMTPAuth   = true;
@@ -79,7 +77,6 @@ try {
     $mail->addAddress($config['destino'], $config['destino_nome']);
     $mail->addReplyTo($email, "$nome $sobrenome"); // ao "Responder", vai direto pro visitante
 
-    // Conteúdo
     $mail->isHTML(true);
     $mail->Subject = "Novo contato pelo site - $nome $sobrenome";
 

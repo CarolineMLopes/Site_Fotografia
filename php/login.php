@@ -9,7 +9,6 @@ if (isAdmin()) {
 
 $erro = '';
 
-// Recebe o POST do formulário
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $senha = $_POST['password'] ?? '';
     if (loginAdmin($senha)) {
