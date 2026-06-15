@@ -1,0 +1,11 @@
+node_modules/
+.env
+imagens/galeria/
+*.log
+
+# Composer (PHPMailer)
+/vendor/
+composer.lock
+
+# Credenciais SMTP — NUNCA commitar
+html/includes/mail-config.php

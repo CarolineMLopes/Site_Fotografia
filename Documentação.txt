@@ -1,0 +1,632 @@
+================================================================================
+       PROJETO DE EXTENSÃO EXTRACURRICULAR — DESENVOLVIMENTO WEB
+       NK Edição e Vídeo · Site Profissional do Fotógrafo Mauricio Nadim
+================================================================================
+Curso .........: Análise e Desenvolvimento de Sistemas (ADS)
+Natureza ......: Projeto Extracurricular de Extensão
+Data de Início : 2025
+Data de Entrega: Maio de 2026
+Tecnologias ...: HTML5 · CSS3 · JavaScript (Vanilla) · PHP 8 · PHPMailer · SMTP
+================================================================================
+
+
+────────────────────────────────────────────────────────────────────────────────
+1. RESUMO
+────────────────────────────────────────────────────────────────────────────────
+
+Este projeto consiste no desenvolvimento de um site profissional completo para
+o fotógrafo Mauricio Nadim, sob o nome fantasia "NK Edição e Vídeo". O objetivo
+central foi criar uma presença digital funcional, esteticamente coerente com a
+identidade visual do profissional e tecnicamente segura, partindo de um projeto
+estático em HTML/CSS e evoluindo até uma aplicação web dinâmica em PHP puro,
+com painel administrativo real, envio de e-mail por SMTP e proteção das imagens
+contra cópia.
+
+O site é composto por duas páginas principais: a página inicial (início),
+responsável por apresentar o fotógrafo, seus serviços, portfólio, biografia e
+formulário de contato; e a página de galeria, que opera em duas visualizações
+distintas — visitante (somente consulta) e administrador (consulta completa +
+gerenciamento do acervo), sem necessidade de conhecimento técnico por parte do
+fotógrafo.
+
+Entre as funcionalidades implementadas destacam-se: autenticação por sessão
+PHP, upload validado de imagens (verificação de extensão + MIME real via
+finfo), exclusão segura de imagens com prevenção de path traversal, grade
+responsiva com lightbox, proteção das imagens contra cópia (bloqueio de menu
+de contexto, arrastar e marca d'água sobreposta a cada foto), envio de e-mail
+real pelo formulário de contato via PHPMailer + Gmail SMTP com honeypot
+anti-spam, separação clara entre modo visitante e modo administrador na
+galeria, componentização em PHP por meio de includes reutilizáveis (header,
+footer, configuração e autenticação), e fallback inteligente para a foto da
+seção "Sobre" — quando o arquivo definitivo ainda não estiver disponível, o
+sistema utiliza uma imagem provisória automaticamente.
+
+
+────────────────────────────────────────────────────────────────────────────────
+2. INTRODUÇÃO
+────────────────────────────────────────────────────────────────────────────────
+
+A presença digital tornou-se indispensável para profissionais autônomos que
+dependem de divulgação visual para conquistar clientes, especialmente em áreas
+criativas como a fotografia. Um portfólio online bem construído transmite
+profissionalismo, organiza o trabalho do fotógrafo e funciona como cartão de
+visitas permanentemente acessível.
+
+Este projeto foi desenvolvido como atividade de extensão extracurricular no
+âmbito do curso de Análise e Desenvolvimento de Sistemas, com o propósito de
+aplicar na prática os conteúdos teóricos estudados em disciplinas como
+Desenvolvimento Web, Programação para Internet e Segurança da Informação.
+
+A proposta surgiu da necessidade real do fotógrafo Mauricio Nadim de possuir
+um site que:
+
+  a) Apresente sua identidade visual (marca, assinatura, serviços e portfólio);
+  b) Permita a ele mesmo gerenciar o acervo fotográfico da galeria sem depender
+     de terceiros;
+  c) Proteja as imagens publicadas de cópia indevida (bloqueio + marca d'água);
+  d) Possua um canal de contato funcional (formulário com envio de e-mail real);
+  e) Seja seguro, evitando exposição de caminhos internos de arquivo e acesso
+     não autorizado ao painel administrativo.
+
+O projeto foi desenvolvido de forma incremental: começou com páginas HTML/CSS
+estáticas, recebeu organização em estrutura de pastas, integrou imagens reais
+do portfólio, passou por uma etapa experimental com backend Node.js (Express)
+e, por fim, foi migrado para PHP puro — escolha tomada após análise prática
+das opções de hospedagem disponíveis para o cliente (PHP é amplamente suportado
+por hospedagens gratuitas e de baixo custo, como InfinityFree e Hostinger).
+
+
+────────────────────────────────────────────────────────────────────────────────
+3. PEDIDOS DO CLIENTE E SOLUÇÕES APLICADAS
+────────────────────────────────────────────────────────────────────────────────
+
+A reunião com o cliente Mauricio Nadim gerou a seguinte lista de requisitos,
+todos implementados:
+
+  Requisito do cliente                    │ Implementação técnica
+  ────────────────────────────────────────┼─────────────────────────────────────
+  Título oficial do site                  │ <title>, header e h1 atualizados
+  ("NK Edição e Vídeo - Fotógrafo         │ em todos os arquivos.
+   Mauricio Nadim").                      │
+                                          │
+  Assinatura do fotógrafo abaixo do       │ Componente .brand-wrapper >
+  logotipo no cabeçalho.                  │ .brand-signature carregando
+                                          │ assinatura_png2.png no header.
+                                          │
+  Foto do fotógrafo ao lado da seção      │ Layout 2 colunas .about-with-photo
+  "Sobre".                                │ com fallback inteligente em PHP:
+                                          │ se imagens/mauricio.jpg existir, é
+                                          │ usado; caso contrário, ensaio2.jpeg
+                                          │ é a foto provisória (file_exists).
+                                          │
+  Página separada de galeria, acessível   │ Botão "Ver mais fotos" no fim do
+  por um botão "Ver mais".                │ #portfolio aponta para galeria.php.
+                                          │
+  Possibilidade de o próprio fotógrafo    │ Painel admin server-side em
+  adicionar e remover imagens.            │ galeria.php (visível somente quando
+                                          │ a sessão PHP confirmar que é admin),
+                                          │ com upload.php e excluir.php.
+                                          │
+  Visitante não conseguir baixar as       │ Camada dupla: bloqueio CSS+JS
+  fotos OU, se conseguir, com marca       │ (contextmenu, dragstart, atalho
+  d'água visível.                         │ Ctrl+S desativado) + sobreposição
+                                          │ .watermark contendo a assinatura
+                                          │ semi-transparente sobre cada foto
+                                          │ (grid e lightbox).
+                                          │
+  Canais de contato corretos: Instagram   │ Lista .contact-list com ícones
+  @fotografomauricionadim, WhatsApp       │ Font Awesome, links wa.me com
+  (19) 99630-8930, Facebook Mauricio      │ mensagem pré-preenchida e
+  Nadim.                                  │ target="_blank" rel="noopener".
+                                          │
+  Formulário de contato funcional         │ contato.php usando PHPMailer
+  enviando e-mail real.                   │ + Gmail SMTP (porta 587/TLS) com
+                                          │ honeypot anti-bot e mensagens
+                                          │ flash via $_SESSION.
+
+
+────────────────────────────────────────────────────────────────────────────────
+4. DESENVOLVIMENTO
+────────────────────────────────────────────────────────────────────────────────
+
+4.1 ESTRUTURA DO PROJETO
+─────────────────────────
+
+Ao longo do desenvolvimento, os arquivos foram organizados na seguinte
+estrutura de diretórios:
+
+  HTML.CSS/
+  ├── index.php                  → Redirecionamento raiz → html/inicio.php
+  ├── composer.json              → Dependências PHP (PHPMailer)
+  ├── .gitignore                 → Exclusões do controle de versão
+  ├── SETUP_EMAIL.md             → Guia de configuração do envio de e-mail
+  ├── PROJETO_EXTENSAO_EXTRACURRICULAR.txt → Este documento
+  ├── vendor/                    → PHPMailer (gitignored, gerado pelo Composer)
+  ├── css/
+  │   ├── vars.css               → Variáveis CSS globais
+  │   ├── inicio.css             → Estilos da página inicial (incl. admin nav)
+  │   └── galeria.css            → Estilos da galeria + painel administrativo
+  ├── imagens/
+  │   ├── assinatura1.png        → Assinatura usada como marca d'água
+  │   ├── assinatura_png2.png    → Assinatura sob o logotipo do header
+  │   ├── casamento1.jpeg ...    → Acervo fixo do portfólio
+  │   ├── ensaio1.jpeg, ensaio2.jpeg, gestante1-3.jpeg, 15anos1-2.jpeg,
+  │   │   batizado1.jpeg, produtos1-2.jpeg, casamento1-2.jpeg
+  │   └── galeria/               → Imagens enviadas pelo admin (gitignored)
+  └── html/
+      ├── inicio.php             → Página principal
+      ├── galeria.php            → Galeria + painel admin
+      ├── login.php              → Formulário de login (POST PHP nativo)
+      ├── logout.php             → Destrói sessão e redireciona
+      ├── upload.php             → Handler de upload de imagens (admin)
+      ├── excluir.php            → Handler de remoção de imagens (admin)
+      ├── contato.php            → Handler do formulário de contato + e-mail
+      └── includes/
+          ├── config.php         → Senha admin, caminhos, limites de upload
+          ├── auth.php           → Funções de sessão (isAdmin, loginAdmin...)
+          ├── head.php           → Tags <head> reutilizáveis
+          ├── header.php         → Header com logo, assinatura e nav
+          ├── footer.php         → Rodapé com ano dinâmico
+          ├── mail-config.php    → Credenciais SMTP (gitignored)
+          └── mail-config.example.php → Modelo público do mail-config
+
+
+4.2 COMO EXECUTAR O SISTEMA
+────────────────────────────
+
+  REQUISITO: PHP 7.4 ou superior (recomendado PHP 8). Composer recomendado
+  (mas opcional — veja SETUP_EMAIL.md para instalação manual do PHPMailer).
+
+  1. Abra o terminal na pasta raiz do projeto:
+
+       cd "D:\Documentos\ADS\projetoextracurricular\2parte\HTML.CSS"
+
+  2. Instale o PHPMailer (apenas na primeira vez):
+
+       composer install
+
+  3. Configure as credenciais de e-mail em html/includes/mail-config.php
+     (siga o SETUP_EMAIL.md para gerar a Senha de App do Gmail).
+
+  4. Suba o servidor embutido do PHP:
+
+       php -S localhost:8000
+
+  O site ficará disponível em: http://localhost:8000
+
+  PÁGINAS DO SITE:
+  ┌─────────────────────┬────────────────────────────────────────────────┐
+  │ Página              │ URL                                            │
+  ├─────────────────────┼────────────────────────────────────────────────┤
+  │ Página inicial      │ http://localhost:8000/html/inicio.php          │
+  │ Galeria             │ http://localhost:8000/html/galeria.php         │
+  │ Login administrador │ http://localhost:8000/html/login.php           │
+  └─────────────────────┴────────────────────────────────────────────────┘
+
+  CREDENCIAIS DO ADMINISTRADOR (padrão):
+  ┌──────────────────┬─────────────────┐
+  │ Campo            │ Valor           │
+  ├──────────────────┼─────────────────┤
+  │ Senha            │ nkadmin2024     │
+  └──────────────────┴─────────────────┘
+
+  COMO ALTERAR A SENHA:
+  Edite a constante ADMIN_PASSWORD no arquivo
+  html/includes/config.php (basta trocar o valor entre aspas).
+
+  FLUXO DE LOGIN DO ADMINISTRADOR:
+  inicio.php (botão "Admin" na nav) → login.php (formulário POST PHP)
+  → galeria.php em modo administrador (badge dourado + painel)
+
+
+4.3 PÁGINA INICIAL (html/inicio.php)
+─────────────────────────────────────
+
+A página inicial foi estruturada em seções semânticas HTML5 com
+componentização em PHP por meio de includes:
+
+  • Header (includes/header.php):
+    - Marca "NK Edição e Vídeo – Fotógrafo Mauricio Nadim";
+    - Logotipo geométrico em CSS puro (.brand-mark);
+    - Assinatura do fotógrafo (assinatura_png2.png) logo abaixo do nome
+      via container .brand-wrapper > .brand-signature;
+    - Navegação âncora para as seções (Início, Serviços, Portfólio,
+      Galeria, Sobre, Contato);
+    - Botão "Admin" que muda de aparência conforme a sessão:
+        · Não logado → pílula outlined sutil que leva a login.php;
+        · Logado     → pílula dourada (badge admin clicável) que leva à
+                       galeria para gerenciar, acompanhada de um link
+                       discreto "Sair".
+
+  • Seção Hero: título principal, descrição da atuação e CTA "Ver portfólio".
+
+  • Seção Serviços: três cards descritivos (Fotografia de Eventos, Edição
+    de Vídeo, Ensaios Externos), gerados a partir de array PHP — facilita
+    futuras edições por quem mantém o site.
+
+  • Seção Portfólio: grade masonry com imagens reais do acervo. Ao final,
+    botão "Ver mais fotos" que leva à galeria completa (galeria.php).
+
+  • Seção Sobre (about-with-photo):
+    - Layout em duas colunas (foto + texto).
+    - Foto utiliza fallback inteligente em PHP:
+
+        $fotoMauricio = file_exists(__DIR__ . '/../imagens/mauricio.jpg')
+            ? '../imagens/mauricio.jpg'
+            : '../imagens/ensaio2.jpeg';
+
+      Quando o cliente fornecer a foto definitiva, basta salvá-la como
+      imagens/mauricio.jpg que o site passa a exibi-la automaticamente.
+
+  • Seção Contato:
+    - Texto introdutório + lista (.contact-list) com Instagram, WhatsApp
+      e Facebook reais do fotógrafo;
+    - Ícones clicáveis (Font Awesome) para as mesmas redes;
+    - Link de WhatsApp no formato wa.me/5519996308930 com mensagem
+      pré-preenchida codificada em URL;
+    - Formulário de contato que envia POST para contato.php.
+
+  • Footer (includes/footer.php) com ano dinâmico via date('Y') do PHP.
+
+
+4.4 PÁGINA DE LOGIN (html/login.php)
+─────────────────────────────────────
+
+Página dedicada à autenticação do administrador, acessada pelo botão
+"Admin" no header da página inicial ou da galeria.
+
+  • Formulário POST simples com um único campo de senha.
+  • Se já houver sessão ativa, redireciona automaticamente para
+    galeria.php (sem solicitar nova senha).
+  • Validação no servidor: compara com ADMIN_PASSWORD usando
+    hash_equals() para evitar timing attacks.
+  • Em caso de sucesso: session_regenerate_id(true) é chamado para
+    evitar session fixation, e $_SESSION['admin'] = true.
+  • Em caso de erro: exibe a mensagem "Senha incorreta" e preserva
+    o estado do formulário.
+
+
+4.5 PÁGINA DE GALERIA (html/galeria.php)
+─────────────────────────────────────────
+
+A galeria foi desenvolvida em duas camadas funcionais:
+
+  CAMADA PÚBLICA (todos os visitantes):
+  - Exibe as imagens enviadas pelo fotógrafo em uma grade responsiva
+    (CSS Grid com auto-fill e tamanho mínimo de coluna configurável).
+  - As fotos são lidas dinamicamente do diretório imagens/galeria/ via
+    scandir() + filtro por extensão.
+  - Cada imagem abre em um lightbox de tela cheia ao ser clicada.
+  - PROTEÇÃO MULTICAMADAS contra cópia:
+    · CSS: pointer-events: none nas <img>, user-select: none,
+      -webkit-user-drag: none;
+    · HTML: atributos draggable="false", oncontextmenu="return false;",
+      ondragstart="return false;";
+    · JavaScript: bloqueio global de contextmenu em imagens, bloqueio
+      de dragstart e dos atalhos Ctrl+S e Ctrl+U;
+    · MARCA D'ÁGUA: elemento .watermark sobreposto a cada foto contendo
+      a assinatura (assinatura1.png) com opacidade reduzida e
+      mix-blend-mode para integrar com a foto. A marca d'água aparece
+      também no lightbox (.watermark-lightbox) com tamanho reduzido.
+  - Estado vazio (nenhuma imagem) é tratado com mensagem amigável.
+
+  CAMADA ADMINISTRATIVA (somente fotógrafo autenticado):
+  - PHP detecta a sessão no momento do render (server-side), ou seja,
+    o painel admin chega no navegador já visível — sem flicker do JS.
+  - Header recebe um badge dourado "Administrador".
+  - Acima da grade aparece o painel .admin-panel com:
+      · Identificação visual "Administrador";
+      · Botão de upload (label + input file oculto, com onchange="submit"
+        para envio automático ao selecionar arquivos), aceita múltiplos
+        .jpg, .jpeg ou .png, tamanho máximo de 10 MB por arquivo;
+      · Mensagens flash de sucesso/erro vindas do handler upload.php;
+      · Botão "Sair" que aciona logout.php.
+  - Cada card recebe um botão de lixeira (.btn-deletar) visível apenas
+    para o admin, com confirm() de segurança antes de remover.
+
+  RESUMO DAS DUAS VISUALIZAÇÕES DA GALERIA:
+  - Visitante: pode apenas visualizar as imagens publicadas (com marca
+    d'água sobreposta e bloqueio de download).
+  - Administrador: visualiza as imagens, adiciona novas, exclui as
+    existentes e encerra a sessão.
+
+
+4.6 BACKEND — HANDLERS PHP
+───────────────────────────
+
+Diferentemente da etapa anterior do projeto (que usava Node.js/Express com
+endpoints REST), a versão final utiliza handlers PHP individuais para cada
+ação, modelo simples e amplamente suportado por hospedagens compartilhadas.
+
+  html/login.php   (GET + POST)
+    → Exibe e processa o formulário de login. POST chama loginAdmin()
+      (auth.php) que valida a senha, regenera o ID de sessão e grava
+      $_SESSION['admin'] = true. Em sucesso, redireciona para galeria.php.
+
+  html/logout.php  (GET)
+    → Chama logoutAdmin(), que limpa $_SESSION, expira o cookie de sessão
+      e chama session_destroy(). Redireciona para galeria.php.
+
+  html/upload.php  (POST, requer admin)
+    → Recebe $_FILES['images'] (array, múltiplos arquivos).
+      Validações: extensão (jpg/jpeg/png), MIME real via finfo,
+      tamanho máximo de 10 MB. Nome final gerado como timestamp +
+      random hex para evitar colisões e expor o nome original.
+      Move o arquivo para imagens/galeria/ via move_uploaded_file().
+      Grava mensagens flash em $_SESSION e redireciona para galeria.php.
+
+  html/excluir.php (POST, requer admin)
+    → Recebe nome do arquivo via $_POST['arquivo'].
+      Sanitização: basename() para remover qualquer tentativa de
+      path traversal (../, ..\). Validação por extensão permitida.
+      Conferência adicional com realpath() para garantir que o caminho
+      resolvido está dentro de UPLOAD_DIR antes do unlink().
+
+  html/contato.php (POST)
+    → Recebe os campos do formulário de contato. Validações:
+      campos obrigatórios, e-mail via FILTER_VALIDATE_EMAIL, tamanho
+      mínimo/máximo da mensagem. Honeypot ("website") rejeita bots
+      silenciosamente sem expor o motivo. Em sucesso, instancia o
+      PHPMailer, autentica no smtp.gmail.com:587 (TLS) e envia um
+      e-mail HTML com Reply-To do visitante (responder no Gmail
+      responde direto para quem mandou). Mensagens flash em sessão.
+
+
+4.7 INCLUDES PHP (componentização)
+───────────────────────────────────
+
+  includes/config.php
+    → Constantes do projeto: ADMIN_PASSWORD, UPLOAD_DIR, UPLOAD_URL_PATH,
+      MAX_FILE_SIZE, ALLOWED_EXT, ALLOWED_MIME. Cria a pasta de upload
+      se não existir.
+
+  includes/auth.php
+    → require_once do config.php + session_start() condicional.
+      Funções: loginAdmin($senha), isAdmin(), logoutAdmin(), exigirAdmin().
+      A função exigirAdmin() é chamada no topo dos handlers protegidos
+      (upload.php, excluir.php) — se o usuário não for admin, redireciona
+      para login.php e encerra a execução.
+
+  includes/head.php
+    → Tags <head> com title, charset, viewport, links CSS (vars.css +
+      $extraCss[]) e Font Awesome. Aceita variáveis $pageTitle e $extraCss
+      definidas pela página chamadora.
+
+  includes/header.php
+    → Cabeçalho com .brand-wrapper (logotipo + assinatura), navegação
+      e botão Admin/Badge conforme o estado de sessão.
+      Aceita variáveis $activePage (destacar item ativo) e $admin (mudar
+      o botão).
+
+  includes/footer.php
+    → Rodapé padronizado com nome da marca e ano corrente via date('Y').
+
+  includes/mail-config.php
+    → Credenciais SMTP (host, porta, usuário Gmail, senha de app,
+      destino, nomes). NÃO é commitado no Git — está no .gitignore.
+
+  includes/mail-config.example.php
+    → Modelo de mail-config.php com placeholders, para servir de
+      referência ao clonar o projeto.
+
+
+4.8 ENVIO DE E-MAIL (PHPMailer + Gmail SMTP)
+─────────────────────────────────────────────
+
+O formulário de contato envia e-mails de verdade. A configuração se baseia
+em PHPMailer (biblioteca padrão da comunidade PHP para envio SMTP) e nas
+"Senhas de app" do Google.
+
+  Configuração SMTP (mail-config.php):
+    host          : smtp.gmail.com
+    port          : 587
+    encryption    : STARTTLS
+    autenticação  : SMTP AUTH com Senha de App de 16 caracteres
+    destino       : carolinemlopes98@gmail.com (e-mail de teste)
+    reply-to      : preenchido com o e-mail do visitante (visitante.email)
+
+  Fluxo do envio:
+    [Form HTML]
+        ↓ POST
+    [contato.php]   → sanitiza, valida, honeypot
+        ↓
+    [PHPMailer]     → conecta no Gmail SMTP, autentica
+        ↓
+    [Gmail]         → envia para o destino
+        ↓
+    [Inbox]         → e-mail chega formatado em HTML
+
+  Anti-spam:
+    • Campo honeypot "website" escondido visualmente — humanos não preenchem,
+      bots automatizados sim. Se vier preenchido, contato.php finge sucesso
+      e ignora silenciosamente, sem alertar o bot.
+    • Limite de 3000 caracteres na mensagem.
+
+O guia passo-a-passo está em SETUP_EMAIL.md — inclui como ativar 2FA na
+conta Google, gerar a Senha de App e colá-la em mail-config.php.
+
+
+4.9 SEGURANÇA
+──────────────
+
+As seguintes medidas de segurança foram implementadas:
+
+  • Sessões PHP nativas:
+    - session_start() com verificação prévia de session_status();
+    - session_regenerate_id(true) no login (anti session fixation);
+    - session_destroy() + expiração de cookie no logout;
+    - hash_equals() na comparação da senha (anti timing attack).
+
+  • Validação de upload em camadas:
+    - Extensão (in_array contra ALLOWED_EXT);
+    - MIME real via finfo_file() (não confia no Content-Type do browser,
+      que é falsificável);
+    - Tamanho (MAX_FILE_SIZE 10 MB);
+    - Nome final gerado pelo servidor (timestamp + random hex), preserva
+      a extensão original.
+
+  • Prevenção de path traversal em excluir.php:
+    - basename() no nome recebido;
+    - Validação de extensão;
+    - Conferência com realpath() para garantir que o arquivo resolvido
+      está dentro de UPLOAD_DIR antes do unlink().
+
+  • Proteção XSS no output:
+    - htmlspecialchars() em todo conteúdo dinâmico que vai para o HTML
+      (mensagens flash, valores reaproveitados de form em caso de erro,
+      nomes de arquivos, etc.);
+    - strip_tags() + filter_var() nas entradas do formulário de contato.
+
+  • Honeypot anti-bot no formulário de contato (sem CAPTCHA invasivo).
+
+  • Credenciais SMTP isoladas em mail-config.php (gitignored).
+
+  • Proteção de imagens no frontend:
+    - oncontextmenu="return false" + ondragstart="return false" no HTML;
+    - addEventListener('contextmenu') e ('dragstart') no JS para fallback;
+    - bloqueio dos atalhos Ctrl+S e Ctrl+U;
+    - pointer-events: none nas <img> via CSS;
+    - sobreposição de marca d'água translúcida sobre cada foto, dificultando
+      a reutilização indevida mesmo se o visitante conseguir fazer
+      print screen.
+
+  • .gitignore configurado:
+    /vendor/, composer.lock, html/includes/mail-config.php,
+    imagens/galeria/, *.log, .env, node_modules/.
+
+
+4.10 DEPENDÊNCIAS (composer.json)
+──────────────────────────────────
+
+  phpmailer/phpmailer (^6.9) → biblioteca para envio de e-mails via SMTP,
+                                com suporte a anexos, HTML/AltBody, charset
+                                UTF-8 e autenticação STARTTLS.
+
+  Outras necessidades são todas atendidas pelo próprio PHP (não exigem
+  biblioteca extra): sessões, validação de e-mail (FILTER_VALIDATE_EMAIL),
+  finfo (extensão padrão), funções de arquivo (move_uploaded_file, unlink,
+  scandir, realpath, basename), date(), e htmlspecialchars().
+
+
+4.11 ESTILIZAÇÃO (CSS)
+───────────────────────
+
+  vars.css      → Custom properties globais (cores, fontes, espaçamentos)
+                  compartilhadas entre as páginas.
+
+  inicio.css    → Layout da página inicial: header com logo + assinatura
+                  empilhados, hero, seção de serviços, portfólio grid,
+                  botão "Ver mais fotos" (.portfolio-cta), sobre com foto
+                  (.about-with-photo, layout 2 colunas), contato (incluindo
+                  .contact-list para os 3 canais), footer, mensagens flash
+                  do form (.form-flash-sucesso / .form-flash-erro), honeypot
+                  escondido (.form-honeypot) e estilos do botão Admin
+                  unificados com a galeria: .btn-admin (não logado),
+                  .admin-header-badge dourada (logado, clicável), .btn-sair-nav
+                  (link discreto de saída).
+
+  galeria.css   → Estilos da galeria: header com brand + assinatura,
+                  badge de admin no header (.admin-header-badge),
+                  painel admin (.admin-panel), upload label, botão
+                  logout, status de upload (.upload-status com variantes
+                  .sucesso e .erro), grade de imagens, cards,
+                  .btn-deletar, .watermark e .watermark-lightbox para a
+                  marca d'água, empty state, loading state, lightbox e
+                  media queries para responsividade.
+
+
+────────────────────────────────────────────────────────────────────────────────
+5. EVOLUÇÃO DO PROJETO (HISTÓRICO DAS ITERAÇÕES)
+────────────────────────────────────────────────────────────────────────────────
+
+O projeto passou pelas seguintes fases:
+
+  Fase 1 — Páginas estáticas (HTML/CSS)
+    Quatro páginas separadas (início, contato, portfólio, sobre-mim)
+    em HTML puro com folha de estilo única.
+
+  Fase 2 — Reestruturação e identidade visual
+    Reorganização em html/, css/, imagens/. Layout escuro elegante,
+    paleta dourada (#e3b66d) como acento, tipografia limpa.
+
+  Fase 3 — Backend Node.js (Express)
+    Experimentação com servidor Express, autenticação via bcrypt em
+    sessão, rate limiting de login, upload com multer, API REST.
+
+  Fase 4 — Migração para PHP standalone
+    Decisão pragmática: PHP é amplamente suportado em hospedagens
+    gratuitas (InfinityFree, 000webhost) e baratas (Hostinger), enquanto
+    Node.js exige VPS pago ou planos específicos. A migração manteve
+    todas as funcionalidades (login, upload, exclusão, sessão segura)
+    mas em PHP puro, simplificando deploy futuro.
+
+  Fase 5 — Pedidos do cliente
+    Implementação dos requisitos levantados em reunião com o fotógrafo:
+    título corrigido, assinatura no header, foto na seção Sobre,
+    botão "Ver mais" para galeria separada, marca d'água nas fotos,
+    bloqueio de download e canais de contato corretos.
+
+  Fase 6 — Formulário de contato funcional
+    Integração do PHPMailer com Gmail SMTP, honeypot anti-spam e
+    mensagens flash. Documentação completa do processo em SETUP_EMAIL.md.
+
+  Fase 7 — Refino visual do botão Admin
+    Unificação do design do botão Admin entre as páginas (mesmo padrão
+    do header da galeria, com badge dourado clicável quando logado).
+
+
+────────────────────────────────────────────────────────────────────────────────
+6. CONCLUSÃO
+────────────────────────────────────────────────────────────────────────────────
+
+O projeto atingiu os objetivos propostos, resultando em um site profissional
+funcional, seguro e de fácil uso para o fotógrafo Mauricio Nadim, com todos
+os requisitos do cliente atendidos.
+
+Do ponto de vista técnico, o desenvolvimento exigiu a integração de múltiplas
+camadas: marcação semântica em HTML5, estilização responsiva em CSS3 puro,
+lógica de interface em JavaScript Vanilla, backend em PHP puro com sessões
+seguras e envio real de e-mails via PHPMailer + Gmail SMTP.
+
+Do ponto de vista acadêmico, o projeto proporcionou experiência prática em:
+
+  · Organização de projetos web em estrutura de pastas por responsabilidade;
+  · Componentização em PHP via includes (header, footer, config, auth);
+  · Autenticação segura: sessões PHP, regeneração de ID, hash_equals;
+  · Prevenção de vulnerabilidades comuns (OWASP Top 10): injeção de path,
+    session fixation, upload de arquivos maliciosos, XSS via output não
+    escapado, falsificação de Content-Type em upload;
+  · Validação de uploads em múltiplas camadas (extensão + MIME real
+    via finfo + tamanho);
+  · Integração com serviços externos via SMTP autenticado;
+  · Proteção visual e legal de imagens (bloqueios + marca d'água);
+  · Uso de variáveis de ambiente / credenciais isoladas (.gitignore);
+  · Controle de versão com Git;
+  · Tomada de decisão técnica: análise comparativa entre Node.js e PHP
+    com base em custo, complexidade de hospedagem e expectativa do cliente.
+
+Como possíveis evoluções futuras do projeto, destacam-se:
+
+  · Marca d'água gravada no arquivo via GD library (proteção real, mesmo
+    contra print screen);
+  · Categorias na galeria (Casamentos / Eventos / Ensaios) com filtro JS;
+  · Token CSRF nos formulários administrativos (anti-CSRF);
+  · Compressão automática de imagens no upload (ex.: imagecreatefromjpeg);
+  · SEO básico: meta description, Open Graph, sitemap.xml, schema.org;
+  · Deploy em hospedagem PHP (InfinityFree para testes, Hostinger para
+    produção com domínio próprio);
+  · Suporte HTTPS com cookie secure: true;
+  · Painel admin para edição de textos (Sobre, Serviços) salvos em JSON.
+
+O projeto demonstra que é possível, com HTML, CSS, JavaScript e PHP puros —
+sem frameworks de frontend (React, Vue) nem de backend (Laravel, Symfony) —
+construir uma aplicação web completa, segura, profissional e pronta para
+deploy em hospedagem compartilhada de baixo custo. A componentização em
+PHP via includes, a segurança aplicada em múltiplas camadas e a integração
+real com Gmail SMTP consolidam fundamentos sólidos do desenvolvimento web
+full-stack.
+
+================================================================================
+Mauricio Nadim · NK Edição e Vídeo
+Projeto de Extensão Extracurricular — ADS
+================================================================================

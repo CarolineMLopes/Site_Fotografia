@@ -1,0 +1,604 @@
+/* =============================================
+   GALERIA — Estilos
+   ============================================= */
+
+/* Reset básico */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: #050509;
+  color: #f5f5f5;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* ── Header ── */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(5, 5, 9, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 16px clamp(20px, 5vw, 80px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+  color: #f5f5f5;
+}
+
+.brand-mark {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 20%, #ffffff, #f5f5f5 26%, transparent 55%),
+    radial-gradient(circle at 80% 80%, #e3b66d, #f28f45);
+  box-shadow: 0 0 0 1px #ffffff30, 0 0 24px rgba(0, 0, 0, 0.8);
+}
+
+.back-link {
+  font-size: 0.88rem;
+  color: rgba(245, 245, 245, 0.6);
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+}
+
+.back-link {
+  font-size: 0.88rem;
+  color: rgba(245, 245, 245, 0.6);
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: #f5f5f5;
+}
+
+.back-link svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ── Header actions group ── */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* ── Botão Admin (header) ── */
+.btn-admin {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border: 1.5px solid rgba(245, 245, 245, 0.2);
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(245, 245, 245, 0.55);
+  font-size: 0.83rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.btn-admin svg {
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.btn-admin:hover {
+  border-color: rgba(245, 245, 245, 0.5);
+  color: #f5f5f5;
+}
+.btn-admin.ativo {
+  border-color: #e3b66d;
+  color: #e3b66d;
+}
+
+/* ── Badge de admin no header da galeria (mostra quando logado) ── */
+.admin-header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border: 1.5px solid rgba(227, 182, 109, 0.4);
+  border-radius: 999px;
+  background: rgba(227, 182, 109, 0.08);
+  color: #e3b66d;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  pointer-events: none;
+  user-select: none;
+}
+.admin-header-badge svg {
+  width: 13px;
+  height: 13px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+/* ── Logo + assinatura no header da galeria ── */
+.brand-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+.brand-signature {
+  max-width: 130px;
+  height: auto;
+  opacity: 0.85;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ── Form do upload (inline com o painel admin) ── */
+.admin-form-upload {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ── Painel admin ── */
+.admin-panel {
+  border-top: 1px solid rgba(245, 245, 245, 0.08);
+  border-bottom: 1px solid rgba(245, 245, 245, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 20px clamp(20px, 5vw, 80px);
+}
+.admin-panel-inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.admin-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #e3b66d;
+  padding: 5px 12px;
+  border: 1px solid rgba(227, 182, 109, 0.35);
+  border-radius: 999px;
+}
+.admin-badge svg {
+  width: 13px;
+  height: 13px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+.btn-logout {
+  margin-left: auto;
+  padding: 8px 18px;
+  border: 1.5px solid rgba(245, 245, 245, 0.2);
+  border-radius: 8px;
+  background: transparent;
+  color: rgba(245, 245, 245, 0.55);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-logout:hover {
+  border-color: rgba(245, 245, 245, 0.5);
+  color: #f5f5f5;
+}
+
+/* ── Upload label + file input ── */
+#file-input { display: none; }
+.upload-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  border: 1.5px solid rgba(245, 245, 245, 0.25);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #f5f5f5;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+.upload-label:hover {
+  border-color: rgba(245, 245, 245, 0.6);
+  background: rgba(255, 255, 255, 0.05);
+}
+.upload-label svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+/* ── Upload status ── */
+.upload-status {
+  font-size: 0.85rem;
+  color: rgba(245, 245, 245, 0.45);
+}
+.upload-status.sucesso { color: #6dbf7e; }
+.upload-status.erro    { color: #e36d6d; }
+
+/* ── Botão deletar no card ── */
+.btn-deletar {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(5, 5, 9, 0.8);
+  color: rgba(245, 245, 245, 0.7);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+.btn-deletar:hover {
+  background: rgba(227, 109, 109, 0.85);
+  color: #fff;
+}
+.btn-deletar svg {
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+/* ── Modal de login ── */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 199;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.modal-box {
+  position: relative;
+  z-index: 201;
+  background: #0e0e14;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 36px 32px 32px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+}
+.modal-box h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.modal-desc {
+  font-size: 0.88rem;
+  color: rgba(245, 245, 245, 0.5);
+  margin-bottom: 24px;
+}
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: none;
+  border: none;
+  color: rgba(245, 245, 245, 0.4);
+  cursor: pointer;
+  padding: 6px;
+  line-height: 0;
+  transition: color 0.2s;
+}
+.modal-close:hover { color: #f5f5f5; }
+.modal-close svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+.modal-box .form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.modal-box label {
+  font-size: 0.83rem;
+  color: rgba(245, 245, 245, 0.55);
+  letter-spacing: 0.05em;
+}
+.modal-box input[type="password"] {
+  padding: 10px 14px;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #f5f5f5;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.modal-box input[type="password"]:focus {
+  border-color: rgba(245, 245, 245, 0.4);
+}
+.login-error {
+  font-size: 0.83rem;
+  color: #e36d6d;
+  margin-bottom: 12px;
+}
+.modal-box button[type="submit"] {
+  width: 100%;
+  padding: 11px;
+  border: none;
+  border-radius: 8px;
+  background: #f5f5f5;
+  color: #050509;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.modal-box button[type="submit"]:hover  { opacity: 0.88; }
+.modal-box button[type="submit"]:disabled { opacity: 0.5; cursor: default; }
+
+/* ── Hero da página ── */
+.galeria-hero {
+  padding: 60px clamp(20px, 5vw, 80px) 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.galeria-hero h1 {
+  font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.galeria-hero p {
+  color: rgba(245, 245, 245, 0.55);
+  font-size: 0.95rem;
+  max-width: 520px;
+}
+
+/* ── Grid da galeria ── */
+.galeria-wrapper {
+  padding: 40px clamp(20px, 5vw, 80px) 80px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: rgba(245, 245, 245, 0.3);
+}
+
+.empty-state svg {
+  width: 52px;
+  height: 52px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  margin: 0 auto 16px;
+}
+
+.empty-state p {
+  font-size: 0.95rem;
+}
+
+.galeria-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+}
+
+/* ── Cartão de imagem ── */
+.galeria-item {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+  aspect-ratio: 4 / 3;
+  cursor: pointer;
+}
+
+.galeria-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  /* Proteção visual */
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ── Marca d'água sobre cada foto ── */
+.watermark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;       /* não interfere no clique */
+  opacity: 0.32;
+  mix-blend-mode: screen;     /* combina suave com a foto */
+  z-index: 2;
+}
+
+.watermark img {
+  max-width: 60%;
+  max-height: 60%;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.4));
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Marca d'água mais discreta no lightbox (foto grande) */
+.watermark-lightbox {
+  opacity: 0.25;
+}
+
+.watermark-lightbox img {
+  max-width: 35%;
+}
+
+/* Container da imagem dentro do lightbox para a marca d'água ficar relativa a ela */
+.lightbox-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Lightbox ── */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.92);
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.lightbox.open {
+  display: flex;
+}
+
+.lightbox-img {
+  max-width: min(90vw, 960px);
+  max-height: 85vh;
+  border-radius: 8px;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  background: none;
+  border: none;
+  color: rgba(245, 245, 245, 0.7);
+  cursor: pointer;
+  padding: 8px;
+  line-height: 0;
+  transition: color 0.2s;
+}
+
+.lightbox-close:hover {
+  color: #f5f5f5;
+}
+
+.lightbox-close svg {
+  width: 28px;
+  height: 28px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ── Footer ── */
+footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 24px clamp(20px, 5vw, 80px);
+  text-align: center;
+  color: rgba(245, 245, 245, 0.3);
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+}
+
+/* ── Responsividade ── */
+@media (max-width: 600px) {
+  .galeria-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 8px;
+  }
+
+  .admin-panel-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .btn-logout {
+    margin-left: 0;
+  }
+}

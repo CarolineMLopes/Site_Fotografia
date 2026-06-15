@@ -1,0 +1,11 @@
+{
+    "name": "nk-edicao/site",
+    "description": "Site institucional NK Edição e Vídeo - Fotógrafo Mauricio Nadim",
+    "type": "project",
+    "require": {
+        "phpmailer/phpmailer": "^6.9"
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+}
